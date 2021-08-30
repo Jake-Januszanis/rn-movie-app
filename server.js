@@ -8,7 +8,7 @@ app.get('/', function(req,res) {
     res.send('Server Found')
 })
 
-app.get('/search', function(res,req) {
+app.get('/search', function(req,res) {
     res.send('Searching')
 })
 
