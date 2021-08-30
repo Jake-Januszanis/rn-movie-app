@@ -8,6 +8,9 @@ app.get('/', function(req,res) {
     res.send('Server Found')
 })
 
+app.get('/search', function(res,req) {
+    res.send('Searching')
+})
 
 
 
