@@ -12,7 +12,7 @@ app.get('/', function(req,res) {
 
 app.get('/search/:providers/:genres', function(req,res) {
     const {genres, providers} = req.params;
-    axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&include_adult=false&with_genres=${genres},12&with_watch_providers=${providers}&sort_by=vote_average.desc&vote_count.gte=500&with_original_language=en&watch_region=US&without_genres=16, 10402`)
+    axios.get(`https://api.themoviedb.org/3/discover/movie?language=en-US&include_adult=false&with_genres=${genres}&with_watch_providers=${providers}&sort_by=vote_average.desc&vote_count.gte=500&with_original_language=en&watch_region=US&without_genres=16, 10402`)
         .then(function (response) {
             res.send(response.data)
         })
