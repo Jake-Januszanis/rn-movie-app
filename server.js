@@ -11,19 +11,16 @@ app.get('/', function(req,res) {
     res.send('Server Found')
 })
 
-app.get('/search/:providers/:genres', function(req,res) {
+app.get('/search/:genres/:providers', function(req,res) {
     const {genres, providers} = req.params;
-    axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${key}language=en-US&include_adult=false&with_genres=${genres}&with_watch_providers=${providers}&sort_by=vote_average.desc&vote_count.gte=500&with_original_language=en&watch_region=US&without_genres=16, 10402`)
-        .then(function (response) {
-            res.send(response.data)
-        })
-        .catch(function (error) {
-            console.log(error)
-        })
+    fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&include_adult=false&with_genres=${genres}&with_watch_providers=${providers}&sort_by=vote_average.desc&vote_count.gte=500&with_original_language=en&watch_region=US&without_genres=16, 10402`)
+    .then(res => res.json())
+    .then(data => res.send(data))   
 })
 
-app.get('/test', (req, res) => {
-    fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&include_adult=false&with_genres=12&with_watch_providers=8&sort_by=vote_average.desc&vote_count.gte=500&with_original_language=en&watch_region=US&without_genres=16, 10402`)
+app.get('/test/:genres/:providers', (req, res) => {
+    const {genres, providers} = req.params;
+    fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&include_adult=false&with_genres=${genres}&with_watch_providers=${providers}&sort_by=vote_average.desc&vote_count.gte=500&with_original_language=en&watch_region=US&without_genres=16, 10402`)
     .then(res => res.json())
     .then(data => res.send(data))   
 })
