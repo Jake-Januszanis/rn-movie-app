@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const axios = require('axios')
+const fetch = require('node-fetch')
 
 require('dotenv').config();
 const PORT = process.env.PORT || 2000;
@@ -22,14 +23,9 @@ app.get('/search/:providers/:genres', function(req,res) {
 })
 
 app.get('/test', (req, res) => {
-    axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&include_adult=false&with_genres=12&with_watch_providers=8&sort_by=vote_average.desc&vote_count.gte=500&with_original_language=en&watch_region=US&without_genres=16, 10402`)
-    .then(response => {
-        res.send(response.data)
-    })
-    .catch(function (error) {
-        console.log(error)
-    })
-    
+    fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&include_adult=false&with_genres=12&with_watch_providers=8&sort_by=vote_average.desc&vote_count.gte=500&with_original_language=en&watch_region=US&without_genres=16, 10402`)
+    .then(res => res.json())
+    .then(data => res.send(data))   
 })
 
 
