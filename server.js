@@ -15,7 +15,9 @@ app.get('/', function(req,res) {
 
 app.get('/search/:genres/:providers', function(req,res) {
     const {genres, providers} = req.params;
-    fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&include_adult=false&with_genres=${genres}&with_watch_providers=${providers}&sort_by=vote_average.desc&vote_count.gte=500&with_original_language=en&watch_region=US&without_genres=16, 10402`)
+    const stringGenres = genres.split(',').join('|');
+    const stringProviders = providers.split(',').join('|');
+    fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&include_adult=false&with_genres=${stringGenres}&with_watch_providers=${stringProviders}&sort_by=vote_count.desc&vote_count.gte=2000&with_original_language=en&watch_region=US&without_genres=16,10402`)
     .then(res => res.json())
     .then(data => res.send(data))  
 })
